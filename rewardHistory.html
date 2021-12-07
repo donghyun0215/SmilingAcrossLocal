@@ -1,0 +1,186 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" 
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/navbar.css">
+        <link rel="stylesheet" href="css/rewardhistory.css">
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://kit.fontawesome.com/f6d34cc2a5.js" crossorigin="anonymous"></script>
+
+        <!-- SweetAlert   -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <title>Smiling Across Local SG</title>
+        <title>Travel History</title>
+
+    </head>
+
+    <body>
+        <!-- Navigation -->
+        <div id="navdiv">
+            <include-navbar></include-navbar>
+        </div>
+        <div class="main">
+            <div id="app4">
+            <header>
+                <div class="title">
+                    <div v-if="reward_history.length===0" class="titledesc">                   
+                        <h1 style="font-size: clamp(26px, 5vw, 3rem); padding-bottom:20px">No Rewards History</h1>
+                        <p style="font-size: clamp(14px, 3vw, 18px);" >Fill it up with your first redeem product</p>
+                        <a href="Rewards.html"><button class="rwbtn" style="vertical-align:middle;font-size: clamp(14px, 3vw, 18px);" ><span>Redeem Rewards Now</span></button></a>
+                    </div>
+                    <div v-else class="titledesc">
+                        <h1 style="font-size: clamp(26px, 5vw, 3rem); padding-bottom:20px">REWARDS HISTORY</h1>
+                        <p style="font-size: clamp(14px, 3vw, 18px);">Scroll to view your redeemed history</p>
+                        <p  style="font-size: clamp(14px, 3vw, 18px); font-style: italic;">Or</p>
+                        <a href="Rewards.html"><button class="rwbtn" style="vertical-align:middle;font-size: clamp(14px, 3vw, 18px);" ><span>Redeem Rewards Now</span></button></a>
+                    </div>
+                </div>
+            </header>
+
+            <div class=" container ">
+                <div v-if="reward_history.length!==0" >
+                    <p class="subheader">
+                        Check your redeemed product now!
+                    </p>
+                </div>
+                <div >
+                    <i class="fas fa-arrow-alt-circle-left fa-2x" v-on:click="prevPage" id="btn_prev" style="color: #FF6600;"></i>
+                    <span v-if="reward_history.length!==0" style="padding-left: 30px; ">Current Page:</span> <span id="page" style="padding-right: 30px;"></span>
+                    <i class="fas fa-arrow-alt-circle-right fa-2x" v-on:click="nextPage" id="btn_next" style="color: #FF6600;"></i>
+                </div>
+                <div class="table-responsive justify-content-center">
+                    <table class="table table-hover styled-table" id="listingTable" >
+                    </table>
+                </div>
+            </div>
+
+
+                                
+                                
+                            
+                            
+            </div> 
+        </div>
+                    
+    </body>
+        <script src="js/navbar.js"></script>
+        <script type="text/javascript" src="js/sessions.js"></script>
+        <script src="js/signOutPopUp.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+        crossorigin="anonymous"></script>
+    <script>
+        const app4 = Vue.createApp({
+            data(){
+                return {
+                    reward_history:'',
+                    current_page: 1,
+                    records_per_page: 3,
+
+                }
+            },
+            // On load, extract user's reward history from MySQL database starting with most recent
+            mounted:function()  {
+                    var email = localStorage.getItem('user_email')
+                    url="./db/getRewardHistory.php"
+                    const data= {email: email}
+
+                    axios.get(url, {
+                        params: data
+                    })
+                    .then(response => { 
+                        this.reward_history= response.data.reverse()
+                        this.status = response.data
+                        console.log(response.data)
+                        this.changePage(1)
+                    })
+                    .catch(error => {
+                        this.status = 'There was an error: ' + error.message 
+                    }) 
+                    
+                },
+                // Pagination for reward history list 
+                methods:{
+                    prevPage(){
+                        if (this.current_page > 1) {
+                            this.current_page--
+                            this.changePage(this.current_page)
+                        }
+                    },
+                    nextPage(){
+                        if(this.current_page < this.numPages()){ 
+                            this.current_page++
+                            this.changePage(this.current_page)
+                        }
+                    },
+                    changePage(page){
+                        var btn_next = document.getElementById("btn_next")
+                        var btn_prev = document.getElementById("btn_prev")
+                        var listing_table = document.getElementById("listingTable")
+                        var page_span = document.getElementById("page")
+
+
+                        // Validate page
+                        if (page < 1) page = 1
+                        if (page > this.numPages()) page = this.numPages()  
+                        
+                        
+                        if(this.reward_history.length !==0){
+
+                            listing_table.innerHTML = `<thead><tr>
+                                                    <th>Product Image</th>
+                                                    <th>Product Name</th>
+                                                    <th>Product Points</th>
+                                                    <th>Redeemed Time</th>
+                                                </tr></thead><tbody>`
+                            for (var i = (page-1) * this.records_per_page; i < (page * this.records_per_page); i++) {
+                                if(i<this.reward_history.length){
+                                listing_table.innerHTML+= `<tr><td><img src= "${this.reward_history[i].img_url}" width="150" height="200"></td>
+                                    <td style="font-size:28px;  font-weight:bold">${this.reward_history[i].item_name}</td>
+                                    <td style="font-size:28px; color:#103E92; font-weight:bold">${this.reward_history[i].points_used}</td>
+                                    <td style="font-size:16px;font-style: italic;"><i class="fas fa-calendar-check me-3"></i>${this.reward_history[i].datetime}</td></tr>`
+                                }
+                            
+                            }
+                            listing_table.innerHTML+=`</tbody>`
+                            page_span.innerHTML = page
+                            
+                            
+                            if (page == 1) {
+                                btn_prev.style.visibility = "hidden"
+                            } else {
+                                btn_prev.style.visibility = "visible"
+                            }
+
+                            if (page == this.numPages()) {
+                                btn_next.style.visibility = "hidden"
+                            } else {
+                                btn_next.style.visibility = "visible"
+                            }
+                        }else{
+                            btn_prev.style.visibility = "hidden";
+                            btn_next.style.visibility = "hidden"
+                        }
+
+
+                    },
+
+                    // Helper function to computer total number of pages
+                    numPages(){
+                        return Math.ceil(this.reward_history.length / this.records_per_page )
+                    }
+                },
+        })
+        const vm4 = app4.mount("#app4");
+
+    </script>
+</html>

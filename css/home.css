@@ -1,0 +1,162 @@
+.lead{
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+.carousel-inner img {
+    width: 100vw;
+    height: 100vh ;
+    opacity: 80%;
+    filter: brightness(50%);
+    background-position: center center;
+	  background-repeat:  no-repeat;
+    background-size: cover;
+  }
+
+.home-caption {
+  bottom:6.25em !important;
+}
+.carousel-inner h6{
+color:  white;
+font-family: monospace ;
+text-shadow: 2px 2px 6px black, 0 0 25px rgb(255, 255, 255), 0 0 5px rgb(248, 248, 248);
+letter-spacing: -0.1em;
+
+}
+
+.carousel-inner p{
+  color:  white;
+  letter-spacing: -0.05em;
+  text-shadow: 2px 2px 4px #f3d880;
+  
+  }
+
+
+.attbtn {
+    display: inline-block;
+    border-radius:15px;
+    background-color: #fafafab0;
+    border: none;
+    color: #332424;
+    text-align: center;
+    font-family: monospace ;
+    padding: 10px;
+    width: auto;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 2px;
+  }
+  
+  .attbtn span {
+    cursor: pointer;
+    font-weight:bolder;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .attbtn span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .attbtn:hover span {
+    padding-right: 25px;
+  }
+  
+  .attbtn:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+
+
+.regibtn {
+  display: inline-block;
+  border-radius:20px;
+  background-color: #cc0404ef;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-weight:bold;
+  font-family: monospace ;
+  padding: 8px;
+  width: auto;
+  transition: all 2s;
+
+  cursor: pointer;
+  margin: 3px;
+}
+
+.regibtn span {
+  cursor: pointer;
+  display: inline-block;
+  text-transform: uppercase;
+  position: relative;
+  transition: 0.5s;
+}
+
+.regibtn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.regibtn:hover {
+  background-color: #ff1313;
+}
+
+
+.regibtn:hover span {
+
+  padding-right: 25px;
+}
+
+.regibtn:hover span:after {
+
+  opacity: 1;
+  right: 0;
+}
+
+
+
+/* 
+.carousel h2 {
+  position: absolute;
+  z-index: 3; //To appear above the slides 
+  margin-top: 3rem;
+  margin-left: 3rem;
+}
+
+.carousel-item {
+   position: relative; 
+}
+.carousel-item h3 {
+  position: absolute;
+  margin-top: 10rem; // Adjust here the space from top
+  margin-left: 3rem;  // Adjust here the space from left
+  z-index: 2;
+  to appear above the image 
+}
+.carousel-item img {
+  position: absolute;
+  z-index: 1;
+  // To appear below the h3
+}  */
+
+/* #CarouselTransparent {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  background-color: #ccc;
+
+} */
+

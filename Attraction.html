@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/1e43a5f3eb.js" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navbar.css">
+
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- SweetAlert -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma/bulma.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <title>Attractions</title>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <div id="navdiv">
+        <include-navbar></include-navbar>
+    </div>
+    
+    <div class="container-fluid"  id='attraction'style="padding-top: 30px;">
+        <div class ="main">
+
+            <!-- Back to Top -->
+            <button onclick="topFunction()" id="TopBtn" title="Go to top"><i class="fas fa-angle-double-up"></i></button>
+
+
+            <div class= "row">
+
+            <!--searchbar - search API keyword (one line by itself in small port) -->
+            <div class="col-12">
+                <div class="mx-auto" style="width: 65%;">
+                    <div class="input-group mb-3 my-3" >
+                        <input type="search" id="attractionSearch" class="form-control me-3" aria-label="Search" :placeholder=[[displayPlaceholder]] v-model="searchField"  @keyup.enter ="searchAttraction()">
+                        
+                        <!--search button icon -->
+                        <button class="btn btn-light btn-block">
+                        <i class="fas fa-search" @click="searchAttraction()"></i>
+                        </button> 
+                    </div>
+                </div>
+            </div>
+
+            <!--dropdown list category APIdynamically (stack up in small port)-->
+            <div class="col-md-3 col-xl-2" >
+                <div  class= "row">
+                    <div class="col-sm-6 col-md-12">
+                        <div class="form-floating mx-auto mb-5" >
+                            <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" v-model="selected_cat" @change="displaySelected" >
+                                <option >All</option>
+                                <option v-for="cat_obj in attractionCat">{{cat_obj}}</option>
+                            </select>
+                            <label for="floatingSelectGrid">Search category</label>
+                        </div>
+                    </div>
+                        
+            
+                    <!--checkbox list - mrt stations (stack up in small port)-->
+                    <div class="col-sm-6 col-md-12"> 
+                        <h5 class="font-weight-bold" style="color:#103E92; font-weight:bold">Nearest MRT:</h5>
+                        
+                        <div class="form-check list-inline list-group " id= "mrtCheckList">
+                            
+                            <label class="form-check-label d-flex justify-content-between mb-1" v-for="(count,mrt) in displayMRTlist">
+                                <input type="checkbox" v-model="selectedMRT" :value="mrt" @change="displaySelected">{{mrt}}
+                                <span class="badge badge-primary badge-pill">{{count}}</span>
+                            </label>
+                            <span class="visually-hidden">{{selectedMRT}} </span>
+                        </div>
+                        
+                    </div>
+                </div>
+            
+            </div>
+
+
+
+            <!--the main display cards (display 2?)-->
+            <div class="col-md-9 col-xl-10">
+                
+                <div class="row mx-auto" >
+                    <!--display error msg if any-->
+                    <p v-html ="errorMsg" @click='buttonDisplay()'></p>
+                    
+                    <!--display search + count -->
+                    <div :value="displayField">
+                        <p style="color:brown">Displaying lists of: {{displayField}}   ({{FilteredAttByCat.length}} results)</p>
+                    </div>
+                    
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-3" v-for="a_obj in FilteredAttByCat">
+                        <div class= "card mb-5 img-rounded " style="border-radius: 20px;">
+                            <div class="img-hover-zoom">
+
+                            <img :src="a_obj.photo" class="card-img-top img-fluid"  style="border-top-left-radius: 20px;border-top-right-radius: 20px;" alt="item1">
+                            </div>
+                            <div class="card-body ">
+                                <h6 class="card-title text-dark fw-bolder text-center">{{a_obj.attraction}}</h6>
+                                
+                                <p class="fas fa-subway text-danger ">
+                                    <span style="color:rgb(199, 76, 76)">&nbsp;&nbsp;&nbsp;{{a_obj.mrt}}</span>
+                                </p>
+                                
+                                <div id="cardDesc">
+                                    <p class="card-text text-dark shadow p-3 mb-5 bg-body rounded">{{a_obj.desc}}</p>
+                                </div>
+                                    
+                                <div class = "text-center">
+                                    
+                                    <button class="btn btn-outline-primary"  @click="sweetAlert(a_obj.attraction, a_obj.rating , a_obj.contact, a_obj.website,a_obj.bizTime,a_obj.address, a_obj.photo)">Read More</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+
+
+                
+            <!--the SeeMore Button-->
+            <div class="text-center mb-3" v-html ="displaySeeMore" :value='buttonCount'  @click='buttonDisplay()'>
+            </div> 
+            </div>
+        
+        </div>
+    </div>
+
+
+    <div class="footer">
+            <p class="small text-muted">Made with ❤ by IS216 Team 6 <br>
+            © SmilingAcrossLocal Copyrights. All rights reserved.</p>
+      </div>
+
+
+
+    <!-- Custom JS-->
+    <script src="js/attraction.js"></script>
+    <script src="js/navbar.js"></script>
+    <script type="text/javascript" src="js/sessions.js"></script>
+    <script src="js/signOutPopUp.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</body>
+</html>

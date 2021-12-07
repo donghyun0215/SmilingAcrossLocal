@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/f6d34cc2a5.js" crossorigin="anonymous"></script>
+
+    <title>Smiling Across Local</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/reward.css">
+    <!-- <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma/bulma.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+
+
+    <title>Rewards</title>
+
+</head>
+
+<body >
+    
+    <!-- Navigation -->
+    <div id="navdiv">
+        <include-navbar></include-navbar>
+    </div>
+    <header>
+        <div class="title">
+          <h1>REWARDS</h1>
+          <p>Scroll for more!</p>
+        </div>
+      </header>
+    <div id='reward'>
+        <button onclick="topFunction()" id="TopBtn" title="Go to top"><i class="fas fa-angle-double-up"></i></button>
+        <div class="intro ">
+            <div class="introcontent ">
+                <p class="subheader" style="padding-top:40px;">Welcome to our Rewards Program!</p>
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-6 pb-4 " style="justify-content: flex-end;">
+                            <div class="introicon ">
+                                <i class="fas fa-gifts fa-7x"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="introdesc">Your Rewards Points for now</p>
+                            <p class="intropoint me-5"><span style="font-size:36px; color:#103E92; font-weight:bold">{{userpoints}}</span>    points </p>
+                            <p ><a href="rewardHistory.html"><button class="rwbtn" style="vertical-align:middle" ><span>Reward History </span></button></a></p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid pt-5" >
+            <div class="row">
+                <p class="subheader" style="padding-top:40px;">How to redeem your points</p>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="introfa justify-content-center text-center mx-auto ">
+                        <i class="fas fa-sign-in-alt fa-5x"></i>
+                    </div>
+                    <p class="subsubheading">Step 1</p>
+                    <p class="normal">Log in to <b>SmilingAcrossLocal</b> webpage</p>
+                </div>
+                <div class="col-xs-12 col-sm-4  col-md-4">
+                    <div class="introfa justify-content-center text-center mx-auto">
+                        <i class="fas fa-search-location fa-5x"></i>
+                    </div>
+                    <p class="subsubheading">Step 2</p>
+                    <p class="normal">Search the attraction on "<b>Maps</b>" and select on "<b>I arrived here now!</b>"<p class="text-center"><a href="Maps.html"><button class="rwbtn" style="vertical-align:middle" ><span>Maps</span></button></a></p></p>
+                    
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="introfa justify-content-center text-center mx-auto ">
+                        <i class="fas fa-route fa-5x"></i>
+                    </div>
+                    <p class="subsubheading">Step 3</p>
+                    <p class="normal">Your redemption will be available to you <b>immediately</b> once you have reached <b>within 1km </b> of the attraction!</p>
+                </div>
+                <span ></span>
+            </div>
+            
+        </div>
+    
+        <div class="p-3 main" >
+            
+            <p style="  font-weight: bold;font-size: 36px; padding-top:40px;padding-left:40px;padding-right:40px;text-align: center;">Check out these deals, brought to you by our Rewards</p>
+            <p class="introdesc" style="text-align:center; padding-bottom:40px">Stay tuned to more exciting deals</p>
+    
+            
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col" id = "sidebar">
+                
+                            <h5 class="font-weight-bold" style="font-size:24px; color:#103E92; font-weight:bold">Categories</h5>
+                            <div class="py-3 form-check list-inline list-group btn-group" role="group" data-toggle="buttons" >
+                                    <label class="btn btn-light  d-flex justify-content-between mb-1 "  v-for="(value,key) in productCat" ><input type="checkbox" :id="key" :value="key" v-model="filtertype" @change="filterbycategories(productDict)">{{key}}<span class="badge badge-primary badge-pill">{{value}}</span></label>
+    
+                            </div>
+                            <div class="py-3">
+                                <h5 class="font-weight-bold" style="font-size:24px; color:#103E92; font-weight:bold">Points</h5>
+                                <form class="brand">
+                                    <div class="form-inline d-flex align-items-center py-1" v-for="(value,key) in pointCat"> <label class="tick"><input type="checkbox" :id="key" :value="key" v-model="filterpoint" @change="filterbycategories(productDict)"> {{value}}<span class="check"></span> </label> </div>
+    
+                                </form>
+                            </div>
+                        
+                    </div>
+                    <div class="col-md-8 col-lg-10" id = "items">
+                            <div class="container">
+                                <div class = "row">  
+                                    <div class = "col">
+                                        <div class="row g-3 mt-2 justify-content-center">
+                                            <div class="col-12" > 
+                                                <div class="mx-auto" style="width: 100%;">
+                                                    <div class="input-group mb-3 my-3" >
+                                                        <input type="text" class="form-control" placeholder="Search: Product Name" v-model="searchfield" @change="filterbycategories(productDict)" @keyup.enter ="searchproduct()" > 
+                                                        
+                                                        <button class="btn btn-block" style="background-color: #FF9900"><i class="fas fa-search" style="color:white" @click="searchproduct()"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                               
+                                        </div>                        
+                                        <br>
+                                        <div class="row" :value="displayproduct" v-show="displayproduct.length!=0">
+                                            Displaying product(s) of: {{displayproduct}}
+                                        </div>
+                                        <br>
+                                        <div class="d-flex flex-row">
+                                            <div >
+                                            
+                                                <div id="sorting" class="border rounded p-1 m-1"> <span class="text-muted">Sort by</span> 
+                                                <select name="sort" id="sort" v-model="sorttype" @change ="sortbytype()">
+                                                        <option ><b>Points</b></option>
+                                                        <option ><b>Name</b></option>               
+                                                    </select>  
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                            <div class ="mb-3" :value="sorttype" @click="sortbytype()" >&nbsp;&nbsp;&nbsp;
+                                                <span  v-html="iconButton"  @click="clickIcon()" ></span>
+                  
+                                                
+                                            </div>
+                                            <div class="text-muted m-2 ml-auto mr-lg-3 ms-auto" id="res">Showing {{productfilter.length}} results</div>
+
+                                            
+                                            
+                                        </div>
+                                        <!-- 1st row-->
+                                        <div class="row"  >
+                                            <div v-if="productfilter.length==0" v-html="msg"></div>
+                                            <div class="col-sm-12 col-md-6 col-lg-3  align-items-stretch" @change="productfilter" v-for="product in productfilter">
+                                                <div class="card mb-5 img-rounded " style="border-radius: 20px;">
+                                                    <div class="img-hover-zoom">
+                                                        <img :src="product.image" class="card-img-top img-fluid " style="border-top-left-radius: 20px;border-top-right-radius: 20px;" alt="item1">
+                                                    </div>
+                                                    <div class="card-body ">
+                                                        <h5 class="card-title text-dark">{{product.product}}</h5>
+                                                        <p class="card-text" style="color:rgb(30, 79, 187)" v-if="product.category=='Men'"><i class="fas fa-male fa-lg"></i> <span>&nbsp;&nbsp;&nbsp;{{product.category}} </span></p>
+                                                        <p class="card-text" style="color:rgb(214, 70, 101)" v-else-if="product.category=='Ladies'"><i class="fas fa-female"></i><span >&nbsp;&nbsp;&nbsp;{{product.category}} </span> </p>
+                                                        <p class="card-text" style="color:rgb(218, 102, 36)" v-else-if="product.category=='Kids'"><i class="fas fa-child"></i><span >&nbsp;&nbsp;&nbsp;{{product.category}} </span></p>
+                                                        <p class="card-text" style="color:rgb(138, 71, 32)" v-else><i class="fas fa-shopping-bag"></i><span >&nbsp;&nbsp;&nbsp;{{product.category}} </span></p>
+                                                        <p class="card-text text-dark"><i class="fas fa-gift" ></i>&nbsp;&nbsp;{{product.point}} Points</p>
+                                                        <div class = "text-center">
+                                                            <button type="button" class="btn btn-outline-primary" @click="RedeemClick(product.point,product.product, product.image,product.category)">Redeem</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+    <div class="footer">
+        <p class="small text-muted">Made with ❤️ by IS216 Team 6 <br>
+        © SmilingAcrossLocal Copyrights. All rights reserved.</p>
+    </div>
+    <script src="js/navbar.js"></script>
+    <script type="text/javascript" src="js/sessions.js"></script>
+    <script src="js/signOutPopUp.js"></script>
+    <script src="js/rewardsDeductPoints.js"></script>
+    <script src="js/reward.js"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- Bundled Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

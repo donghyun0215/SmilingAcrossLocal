@@ -1,0 +1,83 @@
+.navbar a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    margin: 0px 3px;
+}
+
+.navbar a:hover{
+    color: rgb(36, 52, 194);
+}
+
+#navdiv{
+    position:fixed;
+    top:0;
+    width:100%;
+    overflow: hidden;
+    z-index: 99;
+    margin-bottom: 30px;
+
+}
+
+
+.navbar{
+    background: white;
+    border-bottom: 1px solid gray;
+    z-index: 99;
+}
+
+.navbar .navbar-brand{
+    display: block;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: 25px;
+}
+
+.navbar-toggler{
+    background: rgb(179, 50, 40) !important;
+    border:none !important;
+    padding: 10px 6px !important;
+    outline :none !important;
+}
+
+.navbar-toggler span{
+    display: block;
+    width: 22px;
+    height: 2px;
+    border: 1px;
+    background: #fff;
+}
+
+.navbar-toggler span + span{
+    margin-top: 4px;
+    width: 18px;
+    margin-left: 4px;
+}
+
+.navbar-toggler span +span + span{
+    width: 10px;
+    margin-left: 10px;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link{
+    padding: 10px 5px;
+    font-size: 14px;
+    position: relative;
+}
+
+
+.navbar-expand-lg .navbar-nav .nav-link:hover{
+    border-top: 4px solid #FF9900;;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link:active{
+    border-top: 4px solid black;
+    color: black;
+}
+
+.main{
+    margin-top: 60px;
+}
+
+/* .searchbar{
+    margin-top: 30px;
+} */

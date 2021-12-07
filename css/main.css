@@ -1,0 +1,224 @@
+body {
+    /* background: rgb(219, 217, 217) !important; */
+    background: #FFF0E9 ;
+    /* opacity: 0.5; */
+    font-family:Verdana, Geneva, Tahoma, sans-serif !important;
+    color: black !important;
+    font-size: 15px !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    line-height: 1.5 !important;
+}
+
+#slidediv{
+  padding:15px;
+}
+.searchbar{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  color: grey;
+}
+
+
+.PhotoFrame{
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+}
+
+.myborder{
+  border: solid 2px black;
+  border-radius:30px;
+  color:black;
+  padding: 20px;
+  background-color:antiquewhite;
+  width: auto;
+  margin:auto;
+}
+.main {
+  /* padding: 16px; */
+  margin-top: 40px;   /*fix every page content height*/
+  /*height: 1500px;  Used in this example to enable scrolling */
+}
+
+#sidebar {
+  width: 20%;
+  /* padding: 10px; */
+  margin: 0;
+  float: left;
+}
+.category {
+  font-size: 0.9rem;
+  cursor: pointer
+}
+
+.list-group-item {
+  border: none;
+  padding: 0.3rem 0.4rem 0.3rem 0rem
+}
+
+.badge-primary {
+  background-color: #FF9900;
+  color: #fff
+}
+
+.brand .check {
+  background-color: #FF9900;
+  top: 3px;
+  
+}
+
+.brand .tick {
+  font-size: 1rem;
+  padding-left: 25px
+  
+}
+
+
+.brand .tick:hover input~.check,
+.rating .tick:hover input~.check {
+  background-color: #f9f9f9
+}
+
+.brand .tick input:checked~.check{
+  background-color: #FF9900
+}
+
+.brand-label {
+  background-color:#FF9900;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  margin: 0 3px
+}
+
+#products {
+  width: 80%;
+  padding: 10px;
+  margin: 0;
+  float: right;
+}
+
+#map {
+  position: relative;
+  padding-bottom: 75%;
+  height: 0;
+  overflow: hidden;
+}
+
+#map2 {
+  position: relative;
+  padding-bottom: 75%;
+  height: 0;
+  overflow: hidden;
+}
+.map-responsive iframe{
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+  
+}
+
+#legend {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #000;
+}
+
+/* from here kw*/
+#mrtCheckList { 
+  border:2px solid whitesmoke; 
+  width: auto; 
+  padding: 5px;
+  height: 200px; 
+  display: block;
+  overflow-y: scroll;
+  background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+#mrtCheckList .form-check-label:hover {background-color: #ddd;}
+
+#attraction .img-hover-zoom {
+  height: 5%; /* [1.1] Set it as per your need */
+  overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+/* [2] Transition property for smooth transformation of images */
+#attraction .img-hover-zoom img {
+  transition: transform .5s ease;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+/* [3] Finally, transforming the image when container gets hovered */
+#attraction .img-hover-zoom:hover img {
+  transform: scale(1.2);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+#attraction #TopBtn {
+  display: none; /*Hidden by default*/
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: #FF9900; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 15px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+}
+
+#attraction #TopBtn:hover {
+  background-color: red; /* Add a dark-grey background on hover */
+}
+
+
+.form-floating{  
+  color:black;
+}
+
+#cardDesc { 
+  height: 200px; 
+  overflow-y: scroll;
+}
+
+#cardDesc::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+
+
+/*to here kw*/
+
+.footer {
+  bottom: 0;
+  margin-bottom: 0;
+  display:inline-block;
+  width: 100%;
+  background-color: darkgray;
+  color: white;
+  text-align: center;
+}
+
+
+
+
+
